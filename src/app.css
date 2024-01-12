@@ -1,0 +1,43 @@
+.app {
+	text-align: center;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+  }
+  
+  .logo {
+	height: 5vmin;
+	pointer-events: none;
+	width: auto;
+	display: flex;
+	padding: 10px;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+	.logo {
+	  animation: logo-float infinite 3s ease-in-out;
+	}
+  }
+  
+  .header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	padding-top: 48px;
+  }
+  
+  @keyframes logo-float {
+	0% {
+	  transform: translateY(0);
+	}
+	50% {
+	  transform: translateY(10px);
+	}
+	100% {
+	  transform: translateY(0px);
+	}
+  }
