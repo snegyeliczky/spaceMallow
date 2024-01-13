@@ -1,120 +1,39 @@
 type Payload = {
   name: string;
   id: string;
-  type: {
-    type: "String";
-    default: null;
-  };
-  reused: {
-    type: "Boolean";
-    default: false;
-  };
+  type?: string | null;
+  reused?: boolean;
   launch: Launch;
-  customers: Array<string>;
-  norad_ids: Array<number>;
-  nationalities: Array<string>;
-  manufacturers: Array<string>;
-  mass_kg: {
-    type: "Number";
-    default: null;
-  };
-  mass_lbs: {
-    type: "Number";
-    default: null;
-  };
-  orbit: {
-    type: "String";
-    default: null;
-  };
-  reference_system: {
-    type: "String";
-    default: null;
-  };
-  regime: {
-    type: "String";
-    default: null;
-  };
-  longitude: {
-    type: "Number";
-    default: null;
-  };
-  semi_major_axis_km: {
-    type: "Number";
-    default: null;
-  };
-  eccentricity: {
-    type: "Number";
-    default: null;
-  };
-  periapsis_km: {
-    type: "Number";
-    default: null;
-  };
-  apoapsis_km: {
-    type: "Number";
-    default: null;
-  };
-  inclination_deg: {
-    type: "Number";
-    default: null;
-  };
-  period_min: {
-    type: "Number";
-    default: null;
-  };
-  lifespan_years: {
-    type: "Number";
-    default: null;
-  };
-  epoch: {
-    type: "String";
-    default: null;
-  };
-  mean_motion: {
-    type: "Number";
-    default: null;
-  };
-  raan: {
-    type: "Number";
-    default: null;
-  };
-  arg_of_pericenter: {
-    type: "Number";
-    default: null;
-  };
-  mean_anomaly: {
-    type: "Number";
-    default: null;
-  };
-  dragon: {
-    capsule: {
-      type: "UUID";
-      default: null;
-    };
-    mass_returned_kg: {
-      type: "Number";
-      default: null;
-    };
-    mass_returned_lbs: {
-      type: "Number";
-      default: null;
-    };
-    flight_time_sec: {
-      type: "Number";
-      default: null;
-    };
-    manifest: {
-      type: "String";
-      default: null;
-    };
-    water_landing: {
-      type: "Boolean";
-      default: null;
-    };
-    land_landing: {
-      type: "Boolean";
-      default: null;
-    };
+  customers: string[];
+  norad_ids: number[];
+  nationalities: string[];
+  manufacturers: string[];
+  mass_kg?: number | null;
+  mass_lbs?: number | null;
+  orbit?: string | null;
+  reference_system?: string | null;
+  regime?: string | null;
+  longitude?: number | null;
+  semi_major_axis_km?: number | null;
+  eccentricity?: number | null;
+  periapsis_km?: number | null;
+  apoapsis_km?: number | null;
+  inclination_deg?: number | null;
+  period_min?: number | null;
+  lifespan_years?: number | null;
+  epoch?: string | null;
+  mean_motion?: number | null;
+  raan?: number | null;
+  arg_of_pericenter?: number | null;
+  mean_anomaly?: number | null;
+  dragon?: {
+    capsule?: string | null;
+    mass_returned_kg?: number | null;
+    mass_returned_lbs?: number | null;
+    flight_time_sec?: number | null;
+    manifest?: string | null;
+    water_landing?: boolean | null;
+    land_landing?: boolean | null;
   };
 };
 
@@ -143,168 +62,84 @@ export type Launch = {
     required: true;
     enum: ["half", "quarter", "year", "month", "day", "hour"];
   };
-  static_fire_date_utc: {
-    type: "String";
-    default: null;
-  };
-  static_fire_date_unix: {
-    type: "Number";
-    default: null;
-  };
-  tdb: {
-    type: "Boolean";
-    default: false;
-  };
-  net: {
-    type: "Boolean";
-    default: false;
-  };
-  window: {
-    type: "Number";
-    default: null;
-  };
-  rocket: {
-    type: "UUID";
-    default: null;
-  };
+  static_fire_date_utc?: string | null;
+  static_fire_date_unix?: number | null;
+  tdb: boolean;
+  net: boolean;
+  window?: number | null;
+  rocket?: string | null;
   failures: {
-    time: {
-      type: "Number";
-    };
-    altitude: {
-      type: "Number";
-    };
-    reason: {
-      type: "String";
-    };
+    time: number;
+    altitude: number;
+    reason: string;
   }[];
-  upcoming: {
-    type: "Boolean";
-    required: true;
-  };
-  details: {
-    type: "String";
-    default: null;
-  };
+  upcoming: boolean;
+  details?: string | null;
   fairings: {
-    reused: {
-      type: "Boolean";
-      default: null;
-    };
-    recovery_attempt: {
-      type: "Boolean";
-      default: null;
-    };
-    recovered: {
-      type: "Boolean";
-      default: null;
-    };
-    ships: ["UUID"];
+    reused?: boolean | null;
+    recovery_attempt?: boolean | null;
+    recovered?: boolean | null;
+    ships?: string[];
   };
-  crew: ["UUID"];
-  ships: ["UUID"];
-  capsules: ["UUID"];
-  payloads: Array<Payload>;
-  launchpad: {
-    type: "UUID";
-    default: null;
-  };
+  crew?: string[];
+  ships?: string[];
+  capsules?: string[];
+  payloads: Payload[];
+  launchpad?: string | null;
   cores: {
-    core: {
-      type: "UUID";
-      default: null;
-    };
-    flight: {
-      type: "Number";
-      default: null;
-    };
-    gridfins: {
-      type: "Boolean";
-      default: null;
-    };
-    legs: {
-      type: "Boolean";
-      default: null;
-    };
-    reused: {
-      type: "Boolean";
-      default: null;
-    };
-    landing_attempt: {
-      type: "Boolean";
-      default: null;
-    };
-    landing_success: {
-      type: "Boolean";
-      default: null;
-    };
-    landing_type: {
-      type: "String";
-      default: null;
-    };
-    landpad: {
-      type: "UUID";
-      default: null;
-    };
+    core?: string | null;
+    flight?: number | null;
+    gridfins?: boolean | null;
+    legs?: boolean | null;
+    reused?: boolean | null;
+    landing_attempt?: boolean | null;
+    landing_success?: boolean | null;
+    landing_type?: string | null;
+    landpad?: string | null;
   }[];
   links: {
     patch: {
-      small: {
-        type: "String";
-        default: null;
-      };
-      large: {
-        type: "String";
-        default: null;
-      };
+      small?: string | null;
+      large?: string | null;
     };
     reddit: {
-      campaign: {
-        type: "String";
-        default: null;
-      };
-      launch: {
-        type: "String";
-        default: null;
-      };
-      media: {
-        type: "String";
-        default: null;
-      };
-      recovery: {
-        type: "String";
-        default: null;
-      };
+      campaign?: string | null;
+      launch?: string | null;
+      media?: string | null;
+      recovery?: string | null;
     };
     flickr: {
-      small: ["String"];
-      original: ["String"];
+      small?: string[];
+      original?: string[];
     };
-    presskit: {
-      type: "String";
-      default: null;
-    };
-    webcast: {
-      type: "String";
-      default: null;
-    };
-    youtube_id: {
-      type: "String";
-      default: null;
-    };
-    article: {
-      type: "String";
-      default: null;
-    };
-    wikipedia: {
-      type: "String";
-      default: null;
-    };
+    presskit?: string | null;
+    webcast?: string | null;
+    youtube_id?: string | null;
+    article?: string | null;
+    wikipedia?: string | null;
   };
-  auto_update: {
-    type: "Boolean";
-    default: true;
-  };
+  auto_update: boolean;
+};
+
+export type LaunchPad = {
+  name?: string | null;
+  full_name?: string | null;
+  status:
+    | "active"
+    | "inactive"
+    | "unknown"
+    | "retired"
+    | "lost"
+    | "under construction";
+  locality?: string | null;
+  region?: string | null;
+  timezone?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  launch_attempts?: number;
+  launch_successes?: number;
+  rockets?: Array<string>;
+  launches?: Array<string>;
 };
 
 type payloadNationalities = {

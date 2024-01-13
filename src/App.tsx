@@ -48,7 +48,7 @@ function App() {
   return (
     <div className="app">
       {selectedLaunch ? (
-        <LaunchDetail selectLaunch={selectLaunch} />
+        <LaunchDetail selectLaunch={selectLaunch} launchId={selectedLaunch} />
       ) : (
         <StyledMainCard>
           <StyledHeader>
@@ -72,7 +72,7 @@ function App() {
                 }}
               >
                 <StyledImageContainer
-                  imageUrl={launch.launch?.links?.flickr.original[0]}
+                  imageUrl={launch.launch?.links?.flickr?.original[0]}
                 >
                   <StyledStatus status={launch.launch.success}>
                     {launch.launch.success ? "success" : "faliur"}
@@ -85,7 +85,7 @@ function App() {
                   <p>{launch.launch.date_local}</p>
                 </StyledTextContainer>
                 <StyledTextContainer>
-                  <p>Crew Size:</p> <p>{launch.launch.crew.length}</p>
+                  <p>Crew Size:</p> <p>{launch?.launch?.crew.length}</p>
                 </StyledTextContainer>
                 <StyledTextContainer>
                   <p>Payload Count:</p> <p>{launch.launch.payloads.length}</p>

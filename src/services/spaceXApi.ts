@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Launch, Nationalities, PayloadesWithLaunches } from "../types";
+import {
+  Launch,
+  LaunchPad,
+  Nationalities,
+  PayloadesWithLaunches,
+} from "../types";
 
 export const spaceXApi = createApi({
   reducerPath: "spaceXApi",
@@ -50,6 +55,12 @@ export const spaceXApi = createApi({
         method: "GET",
       }),
     }),
+    launchpad: builder.query<LaunchPad, { id: string }>({
+      query: ({ id }) => ({
+        url: `/launchpads/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -57,4 +68,5 @@ export const {
   usePayloadsNationalitiesQuery,
   useLaunchesForPayloadsQuery,
   useLauncheQuery,
+  useLaunchpadQuery,
 } = spaceXApi;
