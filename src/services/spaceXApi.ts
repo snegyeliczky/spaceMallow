@@ -19,9 +19,9 @@ export const spaceXApi = createApi({
     }),
     launchesForPayloads: builder.query<
       PayloadesWithLaunches,
-      { nationality: string }
+      { nationality: string; pageCount: number }
     >({
-      query: ({ nationality }) => ({
+      query: ({ nationality, pageCount }) => ({
         url: "/payloads/query",
         method: "POST",
         body: {
@@ -38,6 +38,7 @@ export const spaceXApi = createApi({
                 path: "launch",
               },
             ],
+            page: pageCount,
           },
         },
       }),

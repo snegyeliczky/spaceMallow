@@ -125,13 +125,10 @@ type Payload = {
 };
 
 export type Launch = {
+  name: "String";
+  id: string;
   flight_number: {
     type: "Number";
-    required: true;
-  };
-  name: {
-    type: "String";
-    unique: true;
     required: true;
   };
   date_utc: {

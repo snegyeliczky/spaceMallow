@@ -1,85 +1,61 @@
-import logo from "./assets/logo.svg";
 import "./App.css";
-import {
-  useLauncheQuery,
-  useLaunchesForPayloadsQuery,
-  usePayloadsNationalitiesQuery,
-} from "./services/spaceXApi";
-import { Button, Dropdown, Space, message } from "antd";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
-import type { MenuProps } from "antd";
+import { Button, Dropdown, Space, Pagination, MenuProps } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import { StyledHeader } from "./components/ui/Header";
+import { usePayloadNationality } from "./hooks/usePayloadNationality";
+import { useLaunchesForPayloadsQuery } from "./services/spaceXApi";
+import { useState } from "react";
+
+//   const { data: oneLaunch } = useLauncheQuery({
+//     id: "5eb87cd9ffd86e000604b32a",
+//   });
+
+//   console.log(oneLaunch);
 
 function App() {
-  const { data } = usePayloadsNationalitiesQuery();
+  const { menuItems, handleMenuClick, selectedNationality } =
+    usePayloadNationality();
+  const [pageCount, setPageCount] = useState(1);
+
   const { data: launchData } = useLaunchesForPayloadsQuery({
-    nationality: "United States",
-  });
-  const { data: oneLaunch } = useLauncheQuery({
-    id: "5eb87cd9ffd86e000604b32a",
+    nationality: selectedNationality,
+    pageCount: pageCount,
   });
 
-  console.log(oneLaunch);
+  console.log(launchData?.totalPages);
 
-  console.log(launchData);
-
-  const nationList = data?.docs;
-  const uniqueNations = [
-    ...new Set(nationList?.flatMap((nationality) => nationality.nationalities)),
-  ];
-
-  console.log(uniqueNations);
-
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e);
+  const handleSelect: MenuProps["onClick"] = (e) => {
+    setPageCount(1);
+    handleMenuClick(e);
   };
 
-  const items: MenuProps["items"] = [
-    {
-      label: "1st menu item",
-      key: "1",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "2nd menu item",
-      key: "2",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "3rd menu item",
-      key: "3",
-      icon: <UserOutlined />,
-      danger: true,
-    },
-    {
-      label: "4rd menu item",
-      key: "4",
-      icon: <UserOutlined />,
-      danger: true,
-      disabled: true,
-    },
-  ];
-
   const menuProps = {
-    items,
-    onClick: handleMenuClick,
+    items: menuItems,
+    onClick: handleSelect,
   };
 
   return (
     <div className="app">
-      <img src={logo} className="logo" alt="Vite logo" />
-      <Dropdown menu={menuProps}>
-        <Button>
-          <Space>
-            Button
-            <DownOutlined />
-          </Space>
-        </Button>
-      </Dropdown>
-      <header className="header">
-        <h2>Welcome to the Frontend Technical Test</h2>
-        <p>Please check the README before you start.</p>
-      </header>
+      <StyledHeader>
+        <h1>Space X latest launches</h1>
+        <Dropdown menu={menuProps}>
+          <Button>
+            <Space>
+              {selectedNationality}
+              <DownOutlined />
+            </Space>
+          </Button>
+        </Dropdown>
+      </StyledHeader>
+      {launchData?.docs.map((launch) => (
+        <div key={launch.id}>{launch.name}</div>
+      ))}
+      <Pagination
+        current={launchData?.page}
+        total={launchData?.totalPages && launchData?.totalPages * 10}
+        showSizeChanger={false}
+        onChange={(page) => setPageCount(page)}
+      />
     </div>
   );
 }
