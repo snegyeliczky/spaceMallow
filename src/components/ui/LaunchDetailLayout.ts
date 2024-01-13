@@ -28,12 +28,19 @@ const StyledTextContainer = styled("div")`
 
 const StyledLinkContainer = styled("div")`
   display: flex;
+  align-items: center;
   gap: 20px;
 `;
 
 const StyledLink = styled("a")`
   color: black;
   font-weight: 700;
+`;
+
+const StyledLinkText = styled("div")`
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 export {
@@ -43,4 +50,5 @@ export {
   StyledTextContainer,
   StyledLinkContainer,
   StyledLink,
+  StyledLinkText,
 };

@@ -41,27 +41,11 @@ export type Launch = {
   name: string;
   id: string;
   success: boolean;
-  flight_number: {
-    type: "Number";
-    required: true;
-  };
-  date_utc: {
-    type: "String";
-    required: true;
-  };
-  date_unix: {
-    type: "Number";
-    required: true;
-  };
-  date_local: {
-    type: "String";
-    required: true;
-  };
-  date_precision: {
-    type: "String";
-    required: true;
-    enum: ["half", "quarter", "year", "month", "day", "hour"];
-  };
+  flight_number: number;
+  date_utc: string;
+  date_unix: number;
+  date_local: string;
+  date_precision: string;
   static_fire_date_utc?: string | null;
   static_fire_date_unix?: number | null;
   tdb: boolean;

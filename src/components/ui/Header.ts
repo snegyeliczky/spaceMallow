@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import styled from "styled-components";
 
 const StyledHeader = styled("div")`
@@ -6,4 +7,8 @@ const StyledHeader = styled("div")`
   justify-content: space-between;
 `;
 
-export { StyledHeader };
+const StyledSelectorButton = styled(Button)`
+  background: #efefef;
+`;
+
+export { StyledHeader, StyledSelectorButton };
