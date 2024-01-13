@@ -1,9 +1,6 @@
 type Payload = {
-  name: {
-    type: "String";
-    default: null;
-    unique: true;
-  };
+  name: string;
+  id: string;
   type: {
     type: "String";
     default: null;
@@ -12,10 +9,7 @@ type Payload = {
     type: "Boolean";
     default: false;
   };
-  launch: {
-    type: "UUID";
-    default: null;
-  };
+  launch: Launch;
   customers: Array<string>;
   norad_ids: Array<number>;
   nationalities: Array<string>;
@@ -125,8 +119,9 @@ type Payload = {
 };
 
 export type Launch = {
-  name: "String";
+  name: string;
   id: string;
+  success: boolean;
   flight_number: {
     type: "Number";
     required: true;
@@ -170,10 +165,6 @@ export type Launch = {
   };
   rocket: {
     type: "UUID";
-    default: null;
-  };
-  success: {
-    type: "Boolean";
     default: null;
   };
   failures: {
@@ -339,5 +330,5 @@ export type Nationalities = {
 } & PaginationInfo;
 
 export type PayloadesWithLaunches = {
-  docs: Array<Launch>;
+  docs: Array<Payload>;
 } & PaginationInfo;

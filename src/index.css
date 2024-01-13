@@ -5,6 +5,23 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
   }
+  p{
+	margin: 0;
+	font-size:12px;
+	font-weight: 700;
+	color: #8D8D8D;
+  }
+  h2{
+	font-weight: 700;
+    font-size: 16px;
+	margin:0
+  }
+  h1{
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 37px;
+	letter-spacing: 0em;
+  }
   
   code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

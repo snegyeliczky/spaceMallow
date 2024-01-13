@@ -39,6 +39,7 @@ export const spaceXApi = createApi({
               },
             ],
             page: pageCount,
+            limit: 8,
           },
         },
       }),
