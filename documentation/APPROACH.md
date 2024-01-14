@@ -17,6 +17,7 @@ Use this section to not down anything whilst developing e.g. challenging bits of
 
 ## Describe the user story and your implementation
 
+- if no image use placeholder 
 <!--
 Use this section to describe your implementation for each user story given
 -->
@@ -24,6 +25,10 @@ Use this section to describe your implementation for each user story given
 </br>
 
 ## What would you have done differently if you had more time
+- When I opened the code I always find something wich I could refactor, separat to a smaller component(exp.: LaunchCard/ text blocks wraped with       StyledTextContainer), extract to a separate hook (exp.: App/launchData query) so I would defenetly do this 
+- I woud geting more familiar with the api end prevent fatchin unused data
+
+- Add exeption handeling if no data found for a launch 
 
 <!--
 Use this section to let us know what you would have added/created/implemented if you had more time or if this was to be a production ready application

@@ -1,4 +1,4 @@
-type Payload = {
+export type Payload = {
   name: string;
   id: string;
   type?: string | null;

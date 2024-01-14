@@ -12,7 +12,9 @@ import {
   StyledTextContainer,
 } from "./ui/LaunchDetailLayout";
 import { dateParser } from "../utils/dateParser";
-import { Flex, Skeleton } from "antd";
+import { Skeleton } from "antd";
+import { useLaunchDetail } from "../hooks/useLaunchDetail";
+import ReadMoreLink from "./ReadMoreLink";
 
 type Props = {
   selectLaunch: (id: string) => void;
@@ -20,15 +22,7 @@ type Props = {
 };
 
 const LaunchDetail: FC<Props> = ({ selectLaunch, launchId }) => {
-  const { data: launchDetail, isLoading: isDetailLoading } = useLauncheQuery({
-    id: launchId,
-  });
-  const padId = launchDetail?.launchpad;
-  const { data: launchPad, isLoading: isPadLoading } = useLaunchpadQuery({
-    id: padId ?? "",
-  });
-
-  const isLoading = isDetailLoading || isPadLoading;
+  const { isLoading, launchDetail, launchPad } = useLaunchDetail(launchId);
 
   return isLoading ? (
     <Skeleton active />
@@ -63,24 +57,18 @@ const LaunchDetail: FC<Props> = ({ selectLaunch, launchId }) => {
           <div>
             <p>READ MORE</p>
             <StyledLinkContainer>
-              <StyledLinkText>
-                <img src="src/assets/youtube.png" width={20} />
-                <StyledLink href={launchDetail?.links?.webcast ?? "/"}>
-                  Youtube
-                </StyledLink>
-              </StyledLinkText>
-              <StyledLinkText>
-                <img src="src/assets/reddit.png" width={20} />
-                <StyledLink href={launchDetail?.links.reddit.launch ?? "/"}>
-                  Reddit
-                </StyledLink>
-              </StyledLinkText>
-              <StyledLinkText>
-                <img src="src/assets/wikipedia.png" width={20} />
-                <StyledLink href={launchDetail?.links.wikipedia ?? "/"}>
-                  Wikipedia
-                </StyledLink>
-              </StyledLinkText>
+              <ReadMoreLink
+                link={launchDetail?.links?.webcast}
+                name="Youtube"
+              />
+              <ReadMoreLink
+                link={launchDetail?.links.reddit.launch}
+                name="Reddit"
+              />
+              <ReadMoreLink
+                link={launchDetail?.links.wikipedia}
+                name="Wikipedia"
+              />
             </StyledLinkContainer>
           </div>
         </StyledTextContainer>

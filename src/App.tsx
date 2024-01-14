@@ -1,20 +1,15 @@
 import "./App.css";
-import { Button, Dropdown, Space, Pagination, MenuProps } from "antd";
+import { Dropdown, Space, Pagination, MenuProps } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { StyledHeader, StyledSelectorButton } from "./components/ui/Header";
 import { usePayloadNationality } from "./hooks/usePayloadNationality";
 import { useLaunchesForPayloadsQuery } from "./services/spaceXApi";
 import { useState } from "react";
-import {
-  StyledCardLayout,
-  StyledImageContainer,
-  StyledStatus,
-  StyledTextContainer,
-} from "./components/ui/CardLayout";
-import { StyledCard, StyledMainCard } from "./components/ui/Card";
+import { StyledCardLayout } from "./components/ui/CardLayout";
+import { StyledMainCard } from "./components/ui/Card";
 import LaunchDetail from "./components/LaunchDetail";
-import { dateParser } from "./utils/dateParser";
 import { itemRender } from "./utils/paginationItemRenderer";
+import LaunchCard from "./components/LaunchCard";
 
 function App() {
   const { menuItems, handleMenuClick, selectedNationality } =
@@ -60,38 +55,10 @@ function App() {
           </StyledHeader>
           <StyledCardLayout>
             {launchData?.docs.map((launchDetail) => (
-              <StyledCard
-                key={launchDetail.id}
-                onClick={() => {
-                  console.log(launchDetail.launch.id);
-                  selectLaunch(launchDetail.launch.id);
-                }}
-              >
-                <StyledImageContainer
-                  imageUrl={
-                    launchDetail.launch?.links?.flickr?.original?.length
-                      ? launchDetail.launch?.links?.flickr?.original[0]
-                      : "src/assets/logo.svg"
-                  }
-                >
-                  <StyledStatus status={launchDetail.launch.success}>
-                    {launchDetail.launch.success ? "success" : "faliur"}
-                  </StyledStatus>
-                </StyledImageContainer>
-                <StyledTextContainer>
-                  <h2>{launchDetail.name}</h2>
-                </StyledTextContainer>
-                <StyledTextContainer>
-                  <p>{dateParser(launchDetail?.launch?.date_local)}</p>
-                </StyledTextContainer>
-                <StyledTextContainer>
-                  <p>Crew Size:</p> <p>{launchDetail?.launch?.crew?.length}</p>
-                </StyledTextContainer>
-                <StyledTextContainer>
-                  <p>Payload Count:</p>{" "}
-                  <p>{launchDetail.launch.payloads.length}</p>
-                </StyledTextContainer>
-              </StyledCard>
+              <LaunchCard
+                launchDetail={launchDetail}
+                selectLaunch={selectLaunch}
+              />
             ))}
           </StyledCardLayout>
           <Pagination
