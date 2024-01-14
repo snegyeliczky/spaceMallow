@@ -1,4 +1,4 @@
-import { itemRender } from "./paginationItemRenderer";
+import { itemRender } from "../paginationItemRenderer";
 
 describe("itemRender test", () => {
   it('should return an empty string for "prev" type', () => {

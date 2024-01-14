@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { usePayloadsNationalitiesQuery } from "../services/spaceXApi";
 import { MenuProps } from "antd";
+import { createNationList } from "../utils/createNationList";
 
 export const usePayloadNationality = () => {
   const { data: nationData } = usePayloadsNationalitiesQuery();
@@ -8,9 +9,7 @@ export const usePayloadNationality = () => {
     useState("United States");
 
   const nationList = nationData?.docs;
-  const uniqueNations = [
-    ...new Set(nationList?.flatMap((nationality) => nationality.nationalities)),
-  ];
+  const uniqueNations = createNationList(nationList);
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     setSelectedNationality(e.key);

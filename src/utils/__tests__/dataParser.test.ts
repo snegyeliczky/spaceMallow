@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { dateParser } from "./dateParser";
+import { dateParser } from "../dateParser";
 
 describe("util tests", () => {
   test("should return an empty string for undefined input", () => {

@@ -1,14 +1,11 @@
 import { FC } from "react";
 import { StyledMainCard } from "./ui/Card";
-import { useLauncheQuery, useLaunchpadQuery } from "../services/spaceXApi";
 import { LeftOutlined } from "@ant-design/icons";
 import {
   StyledContentContainer,
   StyledDetailHeader,
   StyledImage,
-  StyledLink,
   StyledLinkContainer,
-  StyledLinkText,
   StyledTextContainer,
 } from "./ui/LaunchDetailLayout";
 import { dateParser } from "../utils/dateParser";

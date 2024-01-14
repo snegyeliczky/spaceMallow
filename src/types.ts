@@ -126,7 +126,7 @@ export type LaunchPad = {
   launches?: Array<string>;
 };
 
-type payloadNationalities = {
+export type payloadNationalities = {
   nationalities: Array<string>;
   id: string;
 };
