@@ -4,6 +4,9 @@ const StyledDetailHeader = styled("div")`
   display: flex;
   margin-bottom: 20px;
   gap: 25%;
+  @media (max-width: 728px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledContentContainer = styled("div")`
@@ -24,6 +27,7 @@ const StyledTextContainer = styled("div")`
   gap: 20px;
   text-align: left;
   height: fit-content;
+  padding-bottom: 20px;
 `;
 
 const StyledLinkContainer = styled("div")`
