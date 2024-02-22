@@ -9,7 +9,7 @@ const ReadMoreLink: FC<Props> = ({ link, name }) => {
   return (
     link && (
       <StyledLinkText>
-        <img src={`src/assets/${name.toLowerCase()}.png`} width={20} />
+        <img src={`/src/assets/${name.toLowerCase()}.png`} width={20} />
         <StyledLink href={link} target="_blank">
           {name}
         </StyledLink>

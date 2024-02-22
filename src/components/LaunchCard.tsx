@@ -27,7 +27,7 @@ const LaunchCard: FC<Props> = ({ launchDetail, selectLaunch }) => {
         visual={
           launchDetail.launch?.links?.flickr?.original?.length
             ? launchDetail.launch?.links?.flickr?.original[0]
-            : "src/assets/starlink.jpeg"
+            : "/src/assets/starlink.jpeg"
         }
       >
         <StyledTextContainer>
