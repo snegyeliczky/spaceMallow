@@ -27,7 +27,11 @@ const LaunchDetail: FC = () => {
   ) : (
     <StyledMainCard>
       <StyledDetailHeader>
-        <Button onClick={() => navigate("/")} fallbackStyle>
+        <Button
+          onClick={() => navigate("/")}
+          fallbackStyle
+          style={{ border: 0 }}
+        >
           <LeftOutlined /> Back to launches
         </Button>
         <div>

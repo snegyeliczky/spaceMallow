@@ -10,6 +10,7 @@ import { StyledMainCard } from "./components/ui/Card";
 import { itemRender } from "./utils/paginationItemRenderer";
 import LaunchCard from "./components/LaunchCard";
 import { useNavigate } from "react-router-dom";
+import FilterModal from "./components/FilterModal";
 
 function App() {
   const { menuItems, handleMenuClick, selectedNationality } =
@@ -23,7 +24,6 @@ function App() {
   });
 
   const selectLaunch = (id: string) => {
-    console.log(id);
     navigate(`/launch/${id}`);
   };
 
@@ -42,14 +42,17 @@ function App() {
       <StyledMainCard>
         <StyledHeader>
           <h1>Space X latest launches</h1>
-          <Dropdown menu={menuProps}>
-            <StyledSelectorButton>
-              <Space>
-                {selectedNationality}
-                <DownOutlined />
-              </Space>
-            </StyledSelectorButton>
-          </Dropdown>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <FilterModal />
+            <Dropdown menu={menuProps}>
+              <StyledSelectorButton>
+                <Space>
+                  {selectedNationality}
+                  <DownOutlined />
+                </Space>
+              </StyledSelectorButton>
+            </Dropdown>
+          </div>
         </StyledHeader>
         <StyledCardLayout>
           {launchData?.docs.map((launchDetail) => (
