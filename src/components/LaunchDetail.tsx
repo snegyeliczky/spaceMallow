@@ -13,6 +13,7 @@ import { Skeleton } from "antd";
 import { useLaunchDetail } from "../hooks/useLaunchDetail";
 import ReadMoreLink from "./ReadMoreLink";
 import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "@mrshmllw/smores-react";
 
 const LaunchDetail: FC = () => {
   const { launchId } = useParams();
@@ -26,9 +27,9 @@ const LaunchDetail: FC = () => {
   ) : (
     <StyledMainCard>
       <StyledDetailHeader>
-        <h2 onClick={() => navigate("/")}>
+        <Button onClick={() => navigate("/")} fallbackStyle>
           <LeftOutlined /> Back to launches
-        </h2>
+        </Button>
         <div>
           <h1>{launchDetail?.name}</h1>
           <p>{dateParser(launchDetail?.date_local)}</p>
