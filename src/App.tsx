@@ -1,6 +1,6 @@
 import "./App.css";
 import { Dropdown, Space, Pagination, MenuProps } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { DownOutlined, RetweetOutlined } from "@ant-design/icons";
 import { StyledHeader, StyledSelectorButton } from "./components/ui/Header";
 import { usePayloadNationality } from "./hooks/usePayloadNationality";
 import { useLaunchesForPayloadsQuery } from "./services/spaceXApi";
@@ -10,18 +10,33 @@ import { StyledMainCard } from "./components/ui/Card";
 import { itemRender } from "./utils/paginationItemRenderer";
 import LaunchCard from "./components/LaunchCard";
 import { useNavigate } from "react-router-dom";
-import FilterModal from "./components/FilterModal";
+import FilterModal, { FilterValidationType } from "./components/FilterModal";
+import { Skeleton } from "antd";
+import { Button } from "@mrshmllw/smores-react";
 
 function App() {
   const { menuItems, handleMenuClick, selectedNationality } =
     usePayloadNationality();
   const [pageCount, setPageCount] = useState(1);
   const navigate = useNavigate();
+  const [launchNameFilter, setLaunchNameFilter] = useState("");
 
-  const { data: launchData } = useLaunchesForPayloadsQuery({
-    nationality: selectedNationality,
-    pageCount: pageCount,
-  });
+  const setFilter = ({ launchName }: FilterValidationType) => {
+    setLaunchNameFilter(launchName);
+  };
+
+  const { data: rawLaunchData, isLoading: isLaunchLoading } =
+    useLaunchesForPayloadsQuery({
+      nationality: selectedNationality,
+      pageCount: pageCount,
+    });
+
+  const launchData = {
+    ...rawLaunchData,
+    docs: rawLaunchData?.docs.filter((launchDetail) =>
+      launchDetail.name.includes(launchNameFilter)
+    ),
+  };
 
   const selectLaunch = (id: string) => {
     navigate(`/launch/${id}`);
@@ -42,25 +57,45 @@ function App() {
       <StyledMainCard>
         <StyledHeader>
           <h1>Space X latest launches</h1>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <FilterModal />
-            <Dropdown menu={menuProps}>
-              <StyledSelectorButton>
-                <Space>
-                  {selectedNationality}
-                  <DownOutlined />
-                </Space>
-              </StyledSelectorButton>
-            </Dropdown>
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            <FilterModal setFilter={setFilter} />
+            <Button
+              fallbackStyle
+              style={{ border: 0 }}
+              onClick={() => setLaunchNameFilter("")}
+            >
+              <RetweetOutlined />
+            </Button>
+            <div style={{ paddingLeft: 20 }}>
+              <Dropdown menu={menuProps}>
+                <StyledSelectorButton>
+                  <Space>
+                    {selectedNationality}
+                    <DownOutlined />
+                  </Space>
+                </StyledSelectorButton>
+              </Dropdown>
+            </div>
           </div>
         </StyledHeader>
         <StyledCardLayout>
-          {launchData?.docs.map((launchDetail) => (
-            <LaunchCard
-              launchDetail={launchDetail}
-              selectLaunch={selectLaunch}
-            />
-          ))}
+          {isLaunchLoading ? (
+            <Skeleton active />
+          ) : (
+            launchData?.docs?.map((launchDetail) => (
+              <LaunchCard
+                launchDetail={launchDetail}
+                selectLaunch={selectLaunch}
+              />
+            ))
+          )}
         </StyledCardLayout>
         <Pagination
           current={launchData?.page}

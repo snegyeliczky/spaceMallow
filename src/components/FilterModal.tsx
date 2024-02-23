@@ -1,5 +1,5 @@
 import { Button, Modal, TextInput } from "@mrshmllw/smores-react";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -14,21 +14,26 @@ const FilterValidation = z.object({
     .min(3),
 });
 
-type FilterValidationType = z.infer<typeof FilterValidation>;
+export type FilterValidationType = z.infer<typeof FilterValidation>;
 
-const FilterModal = () => {
+type FilterModalProps = {
+  setFilter: ({ launchName }: FilterValidationType) => void;
+};
+
+const FilterModal: FC<FilterModalProps> = ({ setFilter }) => {
   const [showModal, setShowModal] = useState(false);
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FilterValidationType>({
     resolver: zodResolver(FilterValidation),
   });
-  const onSubmit: SubmitHandler<FilterValidationType> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<FilterValidationType> = (data) => {
+    setFilter(data);
+    setShowModal(false);
+  };
 
   return (
     <>
