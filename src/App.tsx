@@ -20,16 +20,30 @@ function App() {
   const [pageCount, setPageCount] = useState(1);
   const navigate = useNavigate();
   const [launchNameFilter, setLaunchNameFilter] = useState("");
-
-  const setFilter = ({ launchName }: FilterValidationType) => {
-    setLaunchNameFilter(launchName);
-  };
+  const [pagination, setPagination] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const { data: rawLaunchData, isLoading: isLaunchLoading } =
     useLaunchesForPayloadsQuery({
       nationality: selectedNationality,
       pageCount: pageCount,
+      pagination: pagination,
     });
+
+  const setModal = (status: boolean) => {
+    setShowModal(status);
+  };
+
+    const setFilter = ({ launchName }: FilterValidationType) => {
+      setPagination(false);
+      setLaunchNameFilter(launchName);
+      !isLaunchLoading && setShowModal(false);
+    };
+
+    const resetFilter = () => {
+      setLaunchNameFilter("");
+      setPagination(true);
+    };
 
   const launchData = {
     ...rawLaunchData,
@@ -65,12 +79,13 @@ function App() {
               flexWrap: "wrap",
             }}
           >
-            <FilterModal setFilter={setFilter} />
-            <Button
-              fallbackStyle
-              style={{ border: 0 }}
-              onClick={() => setLaunchNameFilter("")}
-            >
+            <FilterModal
+              setFilter={setFilter}
+              isLaunchLoading={isLaunchLoading}
+              setModal={setModal}
+              showModal={showModal}
+            />
+            <Button fallbackStyle style={{ border: 0 }} onClick={resetFilter}>
               <RetweetOutlined />
             </Button>
             <div style={{ paddingLeft: 20 }}>

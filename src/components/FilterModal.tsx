@@ -1,5 +1,5 @@
 import { Button, Modal, TextInput } from "@mrshmllw/smores-react";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -18,11 +18,17 @@ export type FilterValidationType = z.infer<typeof FilterValidation>;
 
 type FilterModalProps = {
   setFilter: ({ launchName }: FilterValidationType) => void;
+  isLaunchLoading: boolean;
+  setModal: (status: boolean) => void;
+  showModal: boolean;
 };
 
-const FilterModal: FC<FilterModalProps> = ({ setFilter }) => {
-  const [showModal, setShowModal] = useState(false);
-
+const FilterModal: FC<FilterModalProps> = ({
+  setFilter,
+  isLaunchLoading,
+  setModal,
+  showModal,
+}) => {
   const {
     register,
     handleSubmit,
@@ -32,13 +38,12 @@ const FilterModal: FC<FilterModalProps> = ({ setFilter }) => {
   });
   const onSubmit: SubmitHandler<FilterValidationType> = (data) => {
     setFilter(data);
-    setShowModal(false);
   };
 
   return (
     <>
       <Button
-        onClick={() => setShowModal(!showModal)}
+        onClick={() => setModal(!showModal)}
         fallbackStyle
         style={{ border: 0 }}
       >
@@ -46,7 +51,7 @@ const FilterModal: FC<FilterModalProps> = ({ setFilter }) => {
       </Button>
       <Modal
         showModal={showModal}
-        handleClick={() => setShowModal(false)}
+        handleClick={() => setModal(false)}
         title="Search for launch"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -63,7 +68,9 @@ const FilterModal: FC<FilterModalProps> = ({ setFilter }) => {
                 </span>
               )}
             </div>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" loading={isLaunchLoading}>
+              Submit
+            </Button>
           </div>
         </form>
       </Modal>
