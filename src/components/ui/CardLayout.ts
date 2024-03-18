@@ -16,18 +16,6 @@ const StyledCardLayout = styled("div")`
   padding: 20px 0px;
 `;
 
-const StyledImageContainer = styled.div<ImageContainerProps>`
-  background-image: url(${(props) => props.imageUrl});
-  height: 194px;
-  width: 280px;
-  background-size: cover;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  display: flex;
-  justify-content: flex-end;
-  padding: 5px;
-`;
-
 const StyledStatus = styled.div<StatusContainerProps>`
   background-color: ${(props) => (props.status ? "#05AD52" : "red")};
   height: fit-content;
@@ -43,13 +31,8 @@ const StyledStatus = styled.div<StatusContainerProps>`
 
 const StyledTextContainer = styled("div")`
   display: flex;
-  margin: 10px;
+  margin: 10px 0px;
   justify-content: space-between;
 `;
 
-export {
-  StyledCardLayout,
-  StyledImageContainer,
-  StyledStatus,
-  StyledTextContainer,
-};
+export { StyledCardLayout, StyledStatus, StyledTextContainer };

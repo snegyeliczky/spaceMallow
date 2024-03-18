@@ -12,23 +12,28 @@ import { dateParser } from "../utils/dateParser";
 import { Skeleton } from "antd";
 import { useLaunchDetail } from "../hooks/useLaunchDetail";
 import ReadMoreLink from "./ReadMoreLink";
+import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "@mrshmllw/smores-react";
 
-type Props = {
-  selectLaunch: (id: string) => void;
-  launchId: string;
-};
-
-const LaunchDetail: FC<Props> = ({ selectLaunch, launchId }) => {
-  const { isLoading, launchDetail, launchPad } = useLaunchDetail(launchId);
+const LaunchDetail: FC = () => {
+  const { launchId } = useParams();
+  const navigate = useNavigate();
+  const { isLoading, launchDetail, launchPad } = useLaunchDetail(
+    launchId ?? ""
+  );
 
   return isLoading ? (
     <Skeleton active />
   ) : (
     <StyledMainCard>
       <StyledDetailHeader>
-        <h2 onClick={() => selectLaunch("")}>
+        <Button
+          onClick={() => navigate("/")}
+          fallbackStyle
+          style={{ border: 0 }}
+        >
           <LeftOutlined /> Back to launches
-        </h2>
+        </Button>
         <div>
           <h1>{launchDetail?.name}</h1>
           <p>{dateParser(launchDetail?.date_local)}</p>
@@ -39,7 +44,7 @@ const LaunchDetail: FC<Props> = ({ selectLaunch, launchId }) => {
           src={
             launchDetail?.links.flickr.original?.length
               ? launchDetail?.links.flickr.original[0]
-              : "src/assets/starlink.jpeg"
+              : "/src/assets/starlink.jpeg"
           }
         />
         <StyledTextContainer>
